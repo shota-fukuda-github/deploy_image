@@ -1,11 +1,12 @@
 FROM golang:latest AS builder
 
 WORKDIR /app
-COPY ./go /app/
-RUN go build
-
+COPY ./go/ ./
+RUN go mod tidy && go build -o myapp main.go
 
 FROM alpine:latest
-
-COPY --from=builder /app/test /app/
-CMD [ "/app/test" ]
+WORKDIR /app
+RUN apk add --no-cache libc6-compat
+COPY --from=builder /app/myapp .
+EXPOSE 80
+CMD [ "./myapp" ]
