@@ -7,7 +7,7 @@ import (
 
 func ok(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprint(w, "ok")
+	fmt.Fprint(w, "hello")
 }
 
 func ng(w http.ResponseWriter, r *http.Request) {
